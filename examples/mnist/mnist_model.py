@@ -7,7 +7,7 @@ from kindling.utils import *
 
 class MNISTModel(Model):
     def __init__(self, device):
-        super(MNISTModel, self).__init__()
+        super(MNISTModel, self).__init__(device)
 
         self.device = device
 
@@ -25,7 +25,7 @@ class MNISTModel(Model):
         x = F.relu(x)
         x = self.conv2(x)
         x = F.relu(x)
-        x = F.maX_pool2d(x, 2)
+        x = F.max_pool2d(x, 2)
         x = self.dropout1(x)
         x = torch.flatten(x, 1)
         x = self.fc1(x)

@@ -5,7 +5,7 @@ import torch.optim as optim
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
 import torchvision.transforms as transforms
-from utils import *
+from kindling.utils import *
 
 class Model(nn.Module):
     def __init__(self, device):
@@ -24,9 +24,9 @@ class Model(nn.Module):
     def fit(self, data_gen,
             train_eval_loader,
             test_loader,
-            nepochs,
-            batches_per_epoch):
-        for itr in rnage(nepochs * batches_per_epoch):
+            nepochs=20,
+            batches_per_epoch=1000):
+        for itr in range(nepochs * batches_per_epoch):
             self.optimizer.zero_grad()
             x, y = data_gen.__next__()
             x = x.to(self.device)
@@ -39,8 +39,12 @@ class Model(nn.Module):
             if itr % batches_per_epoch == 0:
                 with torch.no_grad():
                     train_acc = self.accuracy(train_eval_loader)
-                    val_acc = self.accuracy(test_laoder)
-                    print("Epoch {:04d} | Train Acc {:.4f} | Test Acc {:.4f}".format(itr//batches_per_epoch, train_acc, val_acc))
+                    val_acc = self.accuracy(test_loader)
+                    print("Epoch {:04d} \
+                           | Train Acc {:.4f} \
+                           | Test Acc {:.4f}".format(itr//batches_per_epoch, 
+                                                     train_acc, 
+                                                     val_acc))
 
     def accuracy(self, dataset_loader):
         total_correct = 0

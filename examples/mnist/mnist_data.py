@@ -30,7 +30,7 @@ class MNIST():
                 num_workers=2,
                 drop_last=True)
 
-        self.train_eval_laoder = DataLoader(
+        self.train_eval_loader = DataLoader(
                 datasets.MNIST(root='.data/mnist',
                                train=True,
                                download=True,
@@ -46,7 +46,7 @@ class MNIST():
                                download=True,
                                transform=transform_test),
                 batch_size=test_batch_size,
-                shuffle=False
+                shuffle=False,
                 num_workers=2,
                 drop_last=True)
 
