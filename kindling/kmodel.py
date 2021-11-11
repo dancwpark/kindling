@@ -57,7 +57,7 @@ class Model(nn.Module):
                     self.forward(x).cpu().detach().numpy(),
                     axis=1)
             total_correct += np.sum(predicted_class == target_class)
-            return total_correct / len(dataset_loader.dataset)
+        return total_correct / len(dataset_loader.dataset)
 
     def to_device(self):
         self.to(self.device)
